@@ -1,0 +1,45 @@
+img {
+    height: 300px;
+    width: 300px;
+    padding: 10px;
+}
+
+body {
+    margin: auto;
+}
+
+h1 {
+    font-size: xx-large;
+    background-color: #D02F3D;
+    padding: 20px;
+    text-align: center;
+    margin-top: 0;
+    margin-left: 0;
+}
+
+p {
+    font-size: 25px;
+}
+
+div {
+    float: left;
+    background-color: #D0C22F;
+    margin: 10px;
+
+}
+
+body {
+    background-color: #D0722F;
+}
+footer {
+    clear: both;
+    background-color: #D02F3D;
+    padding: 25px;
+}
+
+select {
+    font-size: large;
+    background-color: aqua;
+    padding: 10px;
+
+}
