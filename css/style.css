@@ -45,10 +45,16 @@ footer {
 }
 
 select {
-    display: block;
+    /* display: block; */
     margin: auto;
     font-size: large;
     background-color: aqua;
     padding: 10px;
+
+}
+
+#nav {
+    display: flex;
+    justify-content:start;
 
 }
