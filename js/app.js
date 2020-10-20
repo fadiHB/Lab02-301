@@ -54,8 +54,6 @@ $.ajax ('../data/page-1.json',ajaxSettings).then ( data => {
 
   });
 
-
-
 });
 
 $(document).ready(function(){
