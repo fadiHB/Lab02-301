@@ -1,11 +1,39 @@
 # Lab02-301
 
-Number and name of feature: ________________________________
+my partner : Momayaz  Al-Doos
 
-Estimate of time needed to complete: _____
+Number and name of feature: Feature #1: Display images
 
-Start time: _____
+Estimate of time needed to complete: unknown
 
-Finish time: _____
+Start time: 2:00
 
-Actual time needed to complete: _____
+Finish time: 4:00
+
+Actual time needed to complete: 2 h
+
+
+
+
+Number and name of feature: Feature #2: Filter images
+
+Estimate of time needed to complete: unknown
+
+Start time: 4:00
+
+Finish time: 10:00
+
+Actual time needed to complete: 6 h
+
+
+
+
+Number and name of feature: Feature #3: Style the application
+
+Estimate of time needed to complete: unknown
+
+Start time: 10:00
+
+Finish time: 10:10
+
+Actual time needed to complete: 10 min
