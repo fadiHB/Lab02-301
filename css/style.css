@@ -45,6 +45,8 @@ footer {
 }
 
 select {
+    display: block;
+    margin: auto;
     font-size: large;
     background-color: aqua;
     padding: 10px;
