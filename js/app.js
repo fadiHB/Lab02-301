@@ -1,94 +1,134 @@
 'use strict';
 
+let all = [];
 
-function Horns (data) {
-  this.image_url = data.image_url,
-  this.title = data.title,
-  this.description = data.description,
-  this.keyword = data.keyword,
-  this.horns = data.horns;
+// this array used to ..
+// 1 - add all keyword
+// 2 - insure that there is not any keyword repated inside it
+let arrayOfkeyword = [];
+
+function Horns (hornData) {
+
+  for (const key in hornData ) {
+    this[key] = hornData[key];
+  }
+  all.push(this);
 
 }
 
-Horns.prototype.render = function () {
 
-  let photoTemplateCloned = $('#photo-template').clone();
-  $('main').append(photoTemplateCloned);
-  //   photoTemplateCloned.className=this.keyword;
-  //   photoTemplateCloned.id = this.keyword;
+Horns.prototype.filterOption = function () {
 
-  photoTemplateCloned.html (
+  if (!arrayOfkeyword.includes(this.keyword)) {
 
-    `   
-        <div class = "${this.keyword}">
-        <h2>${this.title}</h2>
-        <img src="${this.image_url}" alt="">
-        <p id="dec">${this.description}</p>
-        <p id="numHorns">number of horns is ${this.horns}</p>
-        </div>
-        
-    `
-  );
+    let optionEl = $(`<option value="${this.keyword}">${this.keyword}</option>`);
+    $('#KeywordSelector').append(optionEl);
+    arrayOfkeyword.push(this.keyword);
 
-  //   photoTemplateCloned.find('h2').text(this.title);
-  //   photoTemplateCloned.find('img').attr('src',this.image_url);
-  //   photoTemplateCloned.find('#dec').text(this.description);
-  //   photoTemplateCloned.find('#numHorns').text('number of horns: ' + this.horns);
+  }
+};
+
+Horns.prototype.render2 = function () {
+
+  let template = $('template').html();
+  let html = Mustache.render(template,this);
+  $('main').append(html);
+
+  return html;
 
 };
+
 
 const ajaxSettings = {
   method: 'get',
   dataType: 'json'
 };
 
-$.ajax ('data/page-1.json',ajaxSettings).then ( data => {
-  data.forEach(element => {
 
-    let horn = new Horns (element);
-    horn.render();
 
-    let optionEl = $(`<option value = "${horn.keyword}">${horn.keyword}</option>`);
-    $('select').append(optionEl);
+function readJson ( n ) {
 
+  all = [];
+  arrayOfkeyword = [];
+  $('option').remove();
+
+  $.ajax (`../data/page-${n}.json`,ajaxSettings).then ( data => {
+    data.forEach(element => {
+      let horn = new Horns (element);
+      horn.render2();
+      horn.filterOption();
+
+    });
 
   });
 
-});
+}
+
+function sortedByTitle (a,b) {
+  let result = a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1;
+  return result;
+}
+
+function sortedByHorns (a,b) {
+  let result = a.horns.toUpperCase > b.horns.toUpperCase ? 1 : -1;
+  return result;
+}
+
 
 $(document).ready(function(){
-  $('select').on('change', function(event){
+  $('#KeywordSelector').on('change', function(event){
 
-    let selected = event.target.value; // selected = value === className
-    console.log(selected);
-
+    //---------- filter ----------//
+    let selected = event.target.value;
+    // selected = value of the option's selecter === className of tje div tamplate
     $(`div`).hide();
     $(`.${selected}`).fadeIn(1000);
 
   });
+
+  //---------- load page 1 & page 2 ----------//
+  let page1 = $('.page')[0];
+  let page2 = $('.page')[1];
+
+  function loadPage1whenClick () {
+    $(page1).on('click', () => {
+      $('.active').remove();
+      $('input:radio').prop('checked', false);
+      readJson(1);
+    } );
+  }
+
+  function loadPage2whenClick () {
+    $(page2).on('click', () => {
+      $('.active').remove();
+      $('input:radio').prop('checked', false);
+      readJson(2);
+    } );
+  }
+  loadPage1whenClick ();
+  loadPage2whenClick ();
+  readJson(1);
+
+
+  //---------- sort page 1 & page 2 ----------//
+  $('input:radio[name=sort]').change(function() {
+
+    if (this.id === 'title') {
+      all.sort((a,b) => sortedByTitle(a,b));
+      $('.active').remove();
+      all.forEach(element => {
+        element.render2();
+      });
+
+
+    }
+    else if (this.id === 'horns') {
+      all.sort((a,b) => sortedByHorns(a,b));
+      $('.active').remove();
+      all.forEach(element => {
+        element.render2();
+      });
+    }
+  });
+
 });
-
-
-
-// $(document).ready(function(){
-
-//   all.forEach(element => {
-//     let optionEl = `<option>${element.title}</option>`;
-//     console.log(optionEl);
-//     $('select').append('optionEl');
-//   });
-
-// });
-
-
-
-// for (let i = 0; i < all.length; i++) {
-//   let optionEl = $('<option>' + all[i].title + '</option>');
-//   $('main').append('select');
-// }
-
-// all.forEach(element => {
-//   let optionEl = `<option>${element.title}</option>`;
-//   console.log(optionEl);
-//   $('select').append('optionEl');
-// });

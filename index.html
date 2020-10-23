@@ -11,19 +11,40 @@
 <body>
     <header>
         <h1>The Gallery of Horns</h1>
+
+        <label for="title">sort by title</label>
+        <input type="radio" id="title" name="sort">
+
+
+        <label for="horns">sort number of hornes</label>
+        <input type="radio" id="horns" name="sort">
+
+
         <main>
-            <select>
-                <option value="default">Filter by Keyword</option>
-            </select>
-            </header>
-            <section id="photo-template">
-                <!-- <div>
-                    <h2></h2>
-                    <img src="" alt="">
-                    <p id="dec"></p>
-                    <p id="numHorns"></p>
-                </div> -->
+            <section id="nav">
+
+                <ul>
+                    <li class="page" id="page-1">Page 1</li>
+                    <li class="page" id="page-2" >Page 2</li>
+                </ul>
+
+                <select id="KeywordSelector">
+                    <option value="default">Filter by Keyword</option>
+                </select>
+    
             </section>
+
+            </header>
+
+            <template>
+                <div class="{{keyword}} active">
+                    <h2>{{title}}</h2>
+                    <img src="{{image_url}}" alt="">
+                    <p id="">{{description}}</p>
+                    <p id="">number of horns is {{horns}}</p>
+                </div>
+            </template>
+
         </main>
     <footer>
         © 2018 Code Fellows
