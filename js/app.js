@@ -52,7 +52,7 @@ function readJson ( n ) {
   arrayOfkeyword = [];
   $('option').remove();
 
-  $.ajax (`../data/page-${n}.json`,ajaxSettings).then ( data => {
+  $.ajax (`data/page-${n}.json`,ajaxSettings).then ( data => {
     data.forEach(element => {
       let horn = new Horns (element);
       horn.render2();
